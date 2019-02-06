@@ -72,38 +72,40 @@ static Vec3f computeSpecular(const Vec3f& normal, const Vec3f& lightDir,
 
 Vec3f Scene::trace(const Ray& r, int depth) {
 	Intersection in;
-	if(intersect(in, r)) {
-		Vec3f hitPoint = r.pointAtDistance(in.dHit);
-		Vec3f normal = in.hObj->normalAtPoint(hitPoint);
-		Material& hMat = in.hObj->getMaterial();
 
-		Vec3f color(AMBIENT);
-		for(auto& l : lights) {
-			Vec3f lightDir = l->directionAtPoint(hitPoint);
-			Vec3f toLightVec = -lightDir;
-			toLightVec.norm();
-
-			Ray shadowRay(hitPoint, toLightVec, l->pointDistance(hitPoint));
-			bool visible = !intersect(in, shadowRay);
-
-			if(visible) {
-				float intensity = l->intensityAtPoint(hitPoint);
-
-				Vec3f diff = computeDiffuse(normal, toLightVec, l->getColor(), hMat, intensity);
-				Vec3f spec = computeSpecular(normal, lightDir, hitPoint, l->getColor(), hMat, intensity);
-				color += spec + diff;
-			}
-		}
-
-		if(hMat.isReflective && depth < MAX_DEPTH) {
-			Ray reflRay(hitPoint, r.getDirection().reflect(normal));
-			color += trace(reflRay, depth + 1) * 0.38; // for now reflectivity is hardcoded
-		}
-
-		return color;
+	if(!intersect(in, r)) {
+		return Vec3f(0);
 	}
 
-	return Vec3f(0);
+	Vec3f hitPoint = r.pointAtDistance(in.dHit);
+	Vec3f normal = in.hObj->normalAtPoint(hitPoint);
+	Material& hMat = in.hObj->getMaterial();
+
+	Vec3f color(AMBIENT);
+
+	for(auto& l : lights) {
+		Vec3f lightDir = l->directionAtPoint(hitPoint);
+		Vec3f toLightVec = -lightDir;
+		toLightVec.norm();
+
+		Ray shadowRay(hitPoint, toLightVec, l->pointDistance(hitPoint));
+		bool visible = !intersect(in, shadowRay);
+
+		if(visible) {
+			float intensity = l->intensityAtPoint(hitPoint);
+
+			Vec3f diff = computeDiffuse(normal, toLightVec, l->getColor(), hMat, intensity);
+			Vec3f spec = computeSpecular(normal, lightDir, hitPoint, l->getColor(), hMat, intensity);
+			color += spec + diff;
+		}
+	}
+
+	if(hMat.isReflective && depth < MAX_DEPTH) {
+		Ray reflRay(hitPoint, r.getDirection().reflect(normal));
+		color += trace(reflRay, depth + 1) * 0.38; // for now reflectivity is hardcoded
+	}
+
+	return color;
 }
 
 bool Scene::intersect(Intersection& in, const Ray& r) {
