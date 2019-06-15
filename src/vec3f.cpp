@@ -73,6 +73,14 @@ float Vec3f::dot(const Vec3f& v) const {
 	return this->x * v.x + this->y * v.y + this->z * v.z;
 }
 
+Vec3f Vec3f::cross(const Vec3f& v) const {
+	return Vec3f(
+		this->y * v.z - this->z * v.y,
+		this->z * v.x - this->x * v.z,
+		this->x * v.y - this->y * v.x
+	);
+}
+
 Vec3f Vec3f::reflect(const Vec3f& normal) const {
 	return normal * (-2 * this->dot(normal)) + *this;
 }

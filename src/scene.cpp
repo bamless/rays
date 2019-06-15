@@ -21,6 +21,11 @@ const std::vector<std::unique_ptr<Light>>& Scene::getLights() const {
 	return this->lights;
 }
 
+Camera& Scene::getCamera() {
+	return this->cam;
+}
+
+
 void Scene::render(Image &img, int fov, int aaSamples) {
 	float fovScale = tan((float) fov / 2 * M_PI / 180);
 	float aspectRatio = (float) img.width / (float) img.height;
@@ -35,11 +40,7 @@ void Scene::render(Image &img, int fov, int aaSamples) {
 					float x = (2 * (i + (si + 0.5) / (aaSamples + 1)) / img.width - 1) * fovScale;
 					float y = (1 - 2 * (j + (sj + 0.5) / (aaSamples + 1)) / img.height) * 1 / aspectRatio * fovScale;
 
-					Vec3f rayDir(x, y, -1);
-					rayDir.norm();
-
-					Ray ray(Vec3f(0, 0, 0), rayDir);
-
+					Ray ray = cam.generateRay(x, y);					
 					color += trace(ray, 0);
 				}
 			}

@@ -4,6 +4,7 @@
 #include "shape.hpp"
 #include "light.hpp"
 #include "image.hpp"
+#include "camera.hpp"
 
 #include <vector>
 #include <memory>
@@ -13,17 +14,19 @@ const float AMBIENT = 0.0072;
 
 class Scene final {
 private:
+	Camera cam;
 	std::vector<std::unique_ptr<Shape>> shapes;
 	std::vector<std::unique_ptr<Light>> lights;
 
 public:
+	void render(Image &img, int fov, int aaSamples);
+
 	void addShape(std::unique_ptr<Shape>&& s);
 	void addLight(std::unique_ptr<Light>&& l);
 
 	const std::vector<std::unique_ptr<Shape>>& getShapes() const;
 	const std::vector<std::unique_ptr<Light>>& getLights() const;
-
-	void render(Image &img, int fov, int aaSamples);
+	Camera& getCamera();
 
 private:
 	struct Intersection {

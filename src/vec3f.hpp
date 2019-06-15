@@ -30,7 +30,9 @@ struct Vec3f {
 	friend Vec3f operator*(Vec3f v, float scalar);
 	friend Vec3f operator-(Vec3f v1, const Vec3f& v2);
 	friend Vec3f operator/(Vec3f v, float scalar);
+	
 	float dot(const Vec3f& v) const;
+	Vec3f cross(const Vec3f& v) const;
 	Vec3f reflect(const Vec3f& normal) const;
 
 	float length2() const;
