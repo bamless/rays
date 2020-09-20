@@ -1,0 +1,26 @@
+﻿---
+BasedOnStyle: Google
+Standard: Cpp11
+
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortIfStatementsOnASingleLine: true
+AllowShortCaseLabelsOnASingleLine: true
+
+ColumnLimit: 100
+IndentWidth: 4
+MaxEmptyLinesToKeep: 1
+AccessModifierOffset: -4
+
+AlignConsecutiveMacros: true
+SpaceBeforeParens: Never
+
+IndentPPDirectives: BeforeHash
+IndentCaseLabels: false
+
+PenaltyBreakAssignment: 20
+PenaltyBreakBeforeFirstCallParameter: 50
+
+BreakConstructorInitializers: BeforeColon
+ConstructorInitializerAllOnOneLineOrOnePerLine: false
+
+...

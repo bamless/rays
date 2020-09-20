@@ -1,9 +1,9 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
-#include "ray.hpp"
-#include "vec3f.hpp"
 #include "matrix4f.hpp"
+#include "ray.hpp"
+#include "vec3.hpp"
 
 class Camera {
 private:
