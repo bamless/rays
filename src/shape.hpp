@@ -10,6 +10,7 @@ private:
 
 public:
     Shape(const Material& m) : mat{m} {}
+    virtual ~Shape() = default;
 
     void setMaterial(const Material& m) { mat = m; }
 

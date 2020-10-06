@@ -10,6 +10,7 @@ protected:
 
 public:
     Light(const Vec3f& color, float intensity) : color{color}, intensity{intensity} {}
+    virtual ~Light() = default;
 
     virtual Vec3f directionAtPoint(const Vec3f& p) const = 0;
     virtual float intensityAtPoint(const Vec3f& p) const = 0;
