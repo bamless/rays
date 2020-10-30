@@ -12,7 +12,7 @@ Vec3f DirLight::directionAtPoint(const Vec3f& p) const {
 
 float DirLight::intensityAtPoint(const Vec3f& p) const {
     (void)p;
-    return intensity;
+    return getIntensity();
 }
 
 float DirLight::pointDistance(const Vec3f& p) const {

@@ -8,11 +8,11 @@
 
 #define PI 3.141592
 
-void Scene::addShape(std::unique_ptr<Shape>&& s) {
+void Scene::addShape(std::unique_ptr<Shape> s) {
     shapes.push_back(std::move(s));
 }
 
-void Scene::addLight(std::unique_ptr<Light>&& l) {
+void Scene::addLight(std::unique_ptr<Light> l) {
     lights.push_back(std::move(l));
 }
 

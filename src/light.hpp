@@ -4,7 +4,7 @@
 #include "vec3.hpp"
 
 class Light {
-protected:
+private:
     Vec3f color;
     float intensity;
 
@@ -17,6 +17,7 @@ public:
     virtual float pointDistance(const Vec3f& p) const = 0;
 
     const Vec3f& getColor() const { return color; }
+    float getIntensity() const { return intensity; }
 };
 
 #endif /* end of include guard: LIGHT_HPP */

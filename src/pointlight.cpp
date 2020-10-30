@@ -12,7 +12,7 @@ Vec3f PointLight::directionAtPoint(const Vec3f& p) const {
 float PointLight::intensityAtPoint(const Vec3f& p) const {
     float distance = (pos - p).length();
     float attFactor = att.x + (att.y * distance) + (att.z * distance * distance);
-    return intensity / attFactor;
+    return getIntensity() / attFactor;
 }
 
 float PointLight::pointDistance(const Vec3f& p) const {

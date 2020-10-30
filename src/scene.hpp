@@ -21,8 +21,8 @@ private:
 public:
     void render(Image& img, int fov, int aaSamples);
 
-    void addShape(std::unique_ptr<Shape>&& s);
-    void addLight(std::unique_ptr<Light>&& l);
+    void addShape(std::unique_ptr<Shape> s);
+    void addLight(std::unique_ptr<Light> l);
 
     const std::vector<std::unique_ptr<Shape>>& getShapes() const;
     const std::vector<std::unique_ptr<Light>>& getLights() const;
